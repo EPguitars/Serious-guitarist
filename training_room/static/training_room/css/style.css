@@ -1,0 +1,99 @@
+
+ 
+ .main-title {
+    position: center;
+    margin: 0;
+    padding: 5;
+    color: #EEE5E9;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+
+ }
+ 
+ .demo .main-title {
+    text-transform: uppercase;
+    font-size: 3.2em;
+    letter-spacing: 0.3em;
+ }
+ 
+ .main-title .thin {
+    font-weight: 200;
+ }
+ 
+ @media only screen and (max-width: 768px) {
+    .demo .main-title {
+       font-size: 3em;
+    }
+ }
+ 
+ body {
+    background: linear-gradient(-45deg, #472497, #FFA552, #6687ad, #b16bf3);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+    height: 100vh;
+  }
+  
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+.container {
+    text-align: center;
+}
+
+
+ 
+
+
+
+/* CSS */
+#sign {
+  align-items: center;
+  background-color: rgba(240, 240, 240, 0.26);
+  border: 1px solid #DFDFDF;
+  border-radius: 16px;
+  box-sizing: border-box;
+  color: #EEE5E9;
+  cursor: pointer;
+  margin: 10px;
+  font-family: Inter, sans-serif;
+  font-size: 10px;
+  justify-content: center;
+ 
+  max-width: 50%;
+  padding: 14px 22px;
+
+  text-decoration: none;
+  transition: all .2s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: 10%;
+}
+
+#sign:active,
+#sign:hover {
+  outline: 0;
+}
+
+#sign:hover {
+  background-color: #FFFFFF;
+  border-color: rgba(0, 0, 0, 0.19);
+}
+
+@media (min-width: 768px) {
+  #sign {
+    font-size: 20px;
+    min-width: 200px;
+    padding: 14px 16px;
+  }
+}
