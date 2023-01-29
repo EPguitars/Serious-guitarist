@@ -51,7 +51,7 @@
 }
 
 .input100 {
-  margin: 3px;
+  margin: 10px;
 }
  
 
@@ -64,11 +64,11 @@
   border: 1px solid #DFDFDF;
   border-radius: 16px;
   box-sizing: border-box;
-  color: #EEE5E9;
+  color: #534660;
   cursor: pointer;
   margin: 10px;
   font-family: Inter, sans-serif;
-  font-size: 10px;
+  font-size: 0.5em;
   justify-content: center;
  
   max-width: 50%;
@@ -140,13 +140,19 @@ p {
   width:80%;
   padding:8px 0 5px 0;
   font-size:16px;
-  color:#fff;
+  color:rgb(72, 72, 72);
   border-radius: 3px;
 }
 .wrap-input100 input:focus{ 
   border:none;	
   outline:none;
-  border-bottom:1px solid #e74c3c;	
+  border-bottom:1px solid #f9f2ff;	
  }
 /*  ***************************** */
 
+.grid {
+  display: grid;
+}
+.block {
+  display: inline-block;
+}

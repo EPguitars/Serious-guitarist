@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% include 'training_room/nav_bar.html' %}
+<div class="limiter">
+<h1>Creation form</h1>
+<form action="" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Create" />
+</form>
+</div>
+{% endblock %}

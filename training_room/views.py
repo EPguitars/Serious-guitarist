@@ -4,6 +4,10 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
+from .forms import BlockForm
+from django.views.generic.edit import CreateView
+from .models import TrainingBlock
+from django.urls import reverse_lazy
 # Create your views here.
 
 def main(request):
@@ -36,7 +40,19 @@ def logoutUser(request):
 
 @login_required(login_url='home')
 def gym(request):
-    context = {}
+    blocks = []
+    blocks_exist = False
+    blocks_count = TrainingBlock.objects.filter(user=request.user).count()
+    if TrainingBlock.objects.filter(user=request.user).exists():
+        blocks_exist = True    
+        
+        blocks = TrainingBlock.objects.filter(user=request.user)
+    
+    context = {
+        "blocks" : blocks,
+        "blocks_exist" : blocks_exist,
+        "blocks_count" : blocks_count
+    }
     
     return render(request, 'training_room/gym.html', context)
 
@@ -56,3 +72,11 @@ def registration(request):
 
     context = {'form': form}
     return render(request, 'training_room/registration.html', context)
+
+class BlockCreate(CreateView):
+    model = TrainingBlock
+    template_name = 'training_room/create_block.html'
+    model.user = User
+    form_class = BlockForm
+    success_url = reverse_lazy('gym')
+    
