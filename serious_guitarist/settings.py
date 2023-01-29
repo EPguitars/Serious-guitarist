@@ -82,7 +82,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         'NAME': 'postgres',
         'USER': 'postgres',
-        'PASSWORD': '12345678',
+        'PASSWORD': 'holocron2',
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -125,7 +125,7 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static")
+    os.path.join(BASE_DIR, "training_room/")
     ]
 
 # Default primary key field type
