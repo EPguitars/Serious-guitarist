@@ -153,6 +153,15 @@ p {
 .grid {
   display: grid;
 }
+
+.limiter .training-blocks {
+  justify-content: center;
+  background-color: #dbdbdb;
+  border-radius: 0.5em;
+  padding: 1em;
+  
+}
+
 .block {
-  display: inline-block;
+  
 }

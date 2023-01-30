@@ -4,11 +4,9 @@
 {% block content %}
    {% include 'training_room/nav_bar.html' %}
    <div class="limiter grid"><a href="{% url 'create_block' %}"><input id="sign" type="submit" value="+ Create new block" /></a>
-      <div>
+      <div class="container">
       {% for block in blocks %}
-      <div class="block">
-         {{block.duration}}  
-      </div>
+      {{block.duration}}
       {% endfor %}
       </div>
    </div>

@@ -4,4 +4,5 @@ from .models import TrainingBlock
 class BlockForm(forms.ModelForm):
     class Meta:
         model = TrainingBlock
-        fields = ['name', 'duration']
+        fields = '__all__'
+        exclude = ['user']

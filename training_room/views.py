@@ -8,6 +8,7 @@ from .forms import BlockForm
 from django.views.generic.edit import CreateView
 from .models import TrainingBlock
 from django.urls import reverse_lazy
+
 # Create your views here.
 
 def main(request):
@@ -73,10 +74,31 @@ def registration(request):
     context = {'form': form}
     return render(request, 'training_room/registration.html', context)
 
+
+
+
+""" def block_create(request):
+    form = BlockForm
+
+    if request.method == "POST":
+        form = BlockForm(request.POST)
+        if form.is_valid():
+            form.instance.user = request.user
+            form.save()
+            return redirect('gym')
+    
+    context = {'form': form}
+    return render(request, 'training_room/create_block.html', context) """
+
 class BlockCreate(CreateView):
     model = TrainingBlock
     template_name = 'training_room/create_block.html'
-    model.user = User
     form_class = BlockForm
     success_url = reverse_lazy('gym')
     
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(BlockCreate, self).form_valid(form)
+
+    
+   
