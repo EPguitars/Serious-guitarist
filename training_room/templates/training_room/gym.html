@@ -3,10 +3,19 @@
 
 {% block content %}
    {% include 'training_room/nav_bar.html' %}
-   <div class="limiter grid"><a href="{% url 'create_block' %}"><input id="sign" type="submit" value="+ Create new block" /></a>
+   <div class="limiter grid">
+      <div>
+      <a href="{% url 'create_block' %}"><input id="sign" type="submit" value="+ Create new block" /></a>
+      </div>
       <div class="container">
       {% for block in blocks %}
-      {{block.duration}}
+      <div class="card">
+         <div class="header"><h1>{{block.name}}</h1></div>
+         <div class="duration">
+             <h3>{{block.duration}} minutes left</h3>
+             {% include 'training_room/button.html' %}
+         </div>
+     </div>
       {% endfor %}
       </div>
    </div>

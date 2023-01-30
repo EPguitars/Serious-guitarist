@@ -101,4 +101,5 @@ class BlockCreate(CreateView):
         return super(BlockCreate, self).form_valid(form)
 
     
-   
+def card(request):
+    return render(request, 'training_room/card.html')
