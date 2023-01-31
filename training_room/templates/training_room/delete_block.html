@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div>
+    <form action="" method="POST">
+    {% csrf_token %}
+    <h2>Are you sure you want delete {{block_on_delete.name}}</h2>
+    <input type="submit" value="Yes" />
+    <input type="button" onclick="location.href='{% url "update_block" pk=block_on_delete.pk%}'" value="No" />
+    </form>
+</div>
+{% endblock %}

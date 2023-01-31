@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div>
+   <form action="" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Confirm" />
+    <input type="button" onclick="location.href='{% url "list_blocks" %}'" value="Cancel" />
+    <a href="{% url 'delete_block' pk=blocks.pk %}">Delete</a>
+    
+</form>
+</div>
+{% endblock %}

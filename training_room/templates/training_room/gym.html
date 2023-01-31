@@ -8,11 +8,12 @@
       <a href="{% url 'create_block' %}"><input id="sign" type="submit" value="+ Create new block" /></a>
       </div>
       <div class="container">
-      {% for block in blocks %}
+      {% for object in object_list %}
       <div class="card">
-         <div class="header"><h1>{{block.name}}</h1></div>
+         <div class="header"><h1>{{object.name}}</h1>
+         <a href="{% url 'update_block' pk=object.pk %}"><button>Edit</button></a></div>
          <div class="duration">
-             <h3>{{block.duration}} minutes left</h3>
+             <h3>{{object.duration}} minutes left</h3>
              {% include 'training_room/button.html' %}
          </div>
      </div>

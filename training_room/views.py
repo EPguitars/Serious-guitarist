@@ -5,15 +5,22 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from .forms import BlockForm
-from django.views.generic.edit import CreateView
 from .models import TrainingBlock
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import ( 
+    CreateView,
+    UpdateView,
+    DeleteView,
+    DetailView,
+    ListView
+)
 
-# Create your views here.
+# It's a FBV for the home page. It consist a login form also!
 
 def main(request):
     if request.user.is_authenticated:
-        return redirect('gym')
+        return redirect('list_blocks')
     if request.method == "POST":
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -27,7 +34,7 @@ def main(request):
         
         if user is not None:
             login(request, user)
-            return redirect('gym')
+            return redirect('list_blocks')
         else:
             messages.error(request, 'Username or password does not correct')
     context = {}
@@ -38,24 +45,11 @@ def logoutUser(request):
     logout(request)
     return redirect('home')
 
+# User's profile FBV
 
-@login_required(login_url='home')
-def gym(request):
-    blocks = []
-    blocks_exist = False
-    blocks_count = TrainingBlock.objects.filter(user=request.user).count()
-    if TrainingBlock.objects.filter(user=request.user).exists():
-        blocks_exist = True    
-        
-        blocks = TrainingBlock.objects.filter(user=request.user)
-    
-    context = {
-        "blocks" : blocks,
-        "blocks_exist" : blocks_exist,
-        "blocks_count" : blocks_count
-    }
-    
-    return render(request, 'training_room/gym.html', context)
+
+
+# A FBV for user registration page 
 
 def registration(request):
     
@@ -74,32 +68,49 @@ def registration(request):
     context = {'form': form}
     return render(request, 'training_room/registration.html', context)
 
-
-
-
-""" def block_create(request):
-    form = BlockForm
-
-    if request.method == "POST":
-        form = BlockForm(request.POST)
-        if form.is_valid():
-            form.instance.user = request.user
-            form.save()
-            return redirect('gym')
-    
-    context = {'form': form}
-    return render(request, 'training_room/create_block.html', context) """
+# A CBV for creating a new block
 
 class BlockCreate(CreateView):
     model = TrainingBlock
     template_name = 'training_room/create_block.html'
     form_class = BlockForm
-    success_url = reverse_lazy('gym')
+    success_url = reverse_lazy('list_blocks')
+    
+    # New block will belong to the authorised user 
     
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super(BlockCreate, self).form_valid(form)
 
-    
+# Here I'm rendering a page for experiments with html and css. Will be deleted when the project will be done!
+
 def card(request):
     return render(request, 'training_room/card.html')
+
+
+# A CBV for editing a block
+
+class UpdateBlock(UpdateView):
+    model = TrainingBlock
+    template_name = 'training_room/update_card.html'
+    form_class = BlockForm
+    success_url = reverse_lazy('list_blocks')
+    context_object_name = "blocks"
+
+
+
+class ListBlocks(LoginRequiredMixin, ListView):
+
+    template_name = "training_room/gym.html"
+    queryset = TrainingBlock.objects.all()
+    
+        
+    def get_queryset(self):
+        return TrainingBlock.objects.filter(user=self.request.user).order_by('created')
+
+
+class DeleteBlocks(DeleteView):
+    template_name = 'training_room/delete_block.html'
+    model = TrainingBlock
+    success_url = reverse_lazy('list_blocks')
+    context_object_name = "block_on_delete"
