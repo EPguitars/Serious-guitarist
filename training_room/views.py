@@ -46,7 +46,7 @@ def logoutUser(request):
     return redirect('home')
 
 # User's profile FBV
-# testing 
+
 
 
 # A FBV for user registration page 
